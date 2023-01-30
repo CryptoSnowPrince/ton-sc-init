@@ -16,8 +16,7 @@ async function main() {
   console.log(`=================================================================`);
   console.log(`Deploy script running, let's find some contracts to deploy..`);
 
-  let chain: string,
-    endpointUrl: string;
+  let chain: string, endpointUrl: string;
   if (process.env.TESTNET || process.env.npm_lifecycle_event == "deploy:testnet") {
     console.log(`\n* We are working with 'testnet' (https://t.me/testgiver_ton_bot will give you testnet TON)`);
     endpointUrl = "https://testnet.toncenter.com/api/v2/jsonRPC";
@@ -125,6 +124,10 @@ async function main() {
       console.log(` - FAILURE! Contract address still looks uninitialized: ${newContractAddress.toFriendly()}`);
     }
   }
+
+  const walletBalanceAfter = await client.getBalance(walletContract.address);
+  await sleep(3 * 1000);
+  console.log(` - Wallet balance is ${fromNano(walletBalanceAfter)} TON, which will be used for gas`);
 
   console.log(``);
 }

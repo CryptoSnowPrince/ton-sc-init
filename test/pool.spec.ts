@@ -163,7 +163,6 @@ describe("pool tests", () => {
     expect(callPoolData.result[0] as BN).to.be.a.bignumber.that.is.lessThan(new BN(10000));
     // @ts-ignore
     expect(callPoolData.result[1] as BN).to.be.a.bignumber.that.is.lessThan(new BN(204030300));
-
   });
 
   it("should allow collecting fees", async () => {
@@ -328,7 +327,7 @@ describe("pool tests", () => {
 
     const callGetOutputs = await contract.invokeGetMethod("get_expected_outputs", [
       { type: "int", value: "20000000000" },
-      { type: "cell_slice", value: (beginCell().storeAddress(randomAddress("wallet0")).endCell()).toBoc({ idx: false }).toString("base64") },
+      { type: "cell_slice", value: beginCell().storeAddress(randomAddress("wallet0")).endCell().toBoc({ idx: false }).toString("base64") },
     ]);
 
     expect(callGetOutputs.result[0] as BN).to.be.a.bignumber.that.is.equal(new BN(19799607967));
@@ -382,7 +381,7 @@ describe("pool tests", () => {
         body: pool.getExpectedOutputs({
           jettonAmount: new BN(20000000000),
           tokenSent: randomAddress("wallet0"),
-        })
+        }),
       })
     );
 
@@ -442,7 +441,6 @@ describe("pool tests", () => {
     expect(tokenOut.readAddress()?.toString()).to.be.equal(randomAddress("wallet0").toString());
     expect(tokenOut.readCoins().toString()).to.be.equal("20");
     expect(tokenOut.readAddress()?.toString()).to.be.equal(randomAddress("wallet1").toString());
-
   });
 
   it("should swap with referall", async () => {

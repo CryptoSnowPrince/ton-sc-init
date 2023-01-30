@@ -109,7 +109,7 @@ describe("router tests", () => {
     let msgOutBody = msgOut.body.beginParse();
     msgOutBody.skip(32 + 64);
     let address2 = msgOutBody.readAddress()?.toString();
-    expect(address2).to.be.equal(result1)
+    expect(address2).to.be.equal(result1);
   });
 
   it("should refuse to pay if caller is not valid", async () => {
@@ -173,7 +173,6 @@ describe("router tests", () => {
 
     let msgOut2 = (sendWithRef.actionList[0] as SendMsgAction).message;
     expect(msgOut2.info.dest?.toString()).to.not.be.equal(tokenWallet0.toString()); // not bounced back
-
   });
 
   it("should route a lp request", async () => {
@@ -206,7 +205,7 @@ describe("router tests", () => {
     );
     expect(sendUpdateAdminOk.type).to.equal("success");
     // two days passed
-    contract.setUnixTime(+new Date() + (24 * 60 * 60 * 2));
+    contract.setUnixTime(+new Date() + 24 * 60 * 60 * 2);
 
     const sendFinalizeUpgradeAdminOk = await contract.sendInternalMessage(
       internalMessage({
@@ -257,7 +256,7 @@ describe("router tests", () => {
     expect(sendFinalizeUpgradeFailed.type).to.equal("success");
     expect(sendFinalizeUpgradeFailed.actionList.length).to.equal(0);
 
-    contract.setUnixTime(+new Date() + (24 * 60 * 60 * 7));
+    contract.setUnixTime(+new Date() + 24 * 60 * 60 * 7);
 
     const sendFinalizeUpgradeOk = await contract.sendInternalMessage(
       internalMessage({
@@ -352,7 +351,7 @@ describe("router tests", () => {
     // skip everything expet last exit code
     let msgOutBody = msgOut.body.beginParse();
     msgOutBody.skip(msgOutBody.remaining - 32);
-    expect(msgOutBody.readUint(32).toNumber()).to.equal(0xA0DBDCB);
+    expect(msgOutBody.readUint(32).toNumber()).to.equal(0xa0dbdcb);
     const send2 = await contract.sendInternalMessage(
       internalMessage({
         from: randomAddress("admin"),
@@ -366,7 +365,6 @@ describe("router tests", () => {
     newStatus = (callGetData2.result[0] as BN).toNumber() == 0 ? "unlocked" : "locked";
     expect(newStatus).to.equal("unlocked");
   });
-
 
   it("should return contracts codes", async () => {
     const callGetRouterData = await contract.invokeGetMethod("get_router_data", []);

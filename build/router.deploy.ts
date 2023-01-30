@@ -5,8 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export function initData() {
-  if (process.env.ADMIN_ADDRESS === undefined)
-    throw new Error("ADMIN_ADDRESS is not defined");
+  if (process.env.ADMIN_ADDRESS === undefined) throw new Error("ADMIN_ADDRESS is not defined");
 
   return router.data({
     isLocked: false,

@@ -65,7 +65,7 @@ export function resetGas(): Cell {
   return beginMessage({ op: new BN(0x42a0fb43) }).endCell();
 }
 
-export function swap(params: { fromAddress: Address; tokenWallet: Address; jettonAmount: BN; toAddress: Address; minOutput: BN; hasRef?: boolean; refAddress?: Address; }): Cell {
+export function swap(params: { fromAddress: Address; tokenWallet: Address; jettonAmount: BN; toAddress: Address; minOutput: BN; hasRef?: boolean; refAddress?: Address }): Cell {
   return beginMessage({ op: new BN(0x25938561) })
     .storeAddress(params.fromAddress)
     .storeAddress(params.tokenWallet)
@@ -73,10 +73,12 @@ export function swap(params: { fromAddress: Address; tokenWallet: Address; jetto
     .storeCoins(params.minOutput)
     .storeBit(!!params.hasRef)
     .storeBit(true)
-    .storeRef(beginCell()
-      .storeAddress(params.fromAddress)
-      .storeAddress(params.refAddress || null)
-      .endCell())
+    .storeRef(
+      beginCell()
+        .storeAddress(params.fromAddress)
+        .storeAddress(params.refAddress || null)
+        .endCell()
+    )
     .endCell();
 }
 
@@ -90,11 +92,10 @@ export function provideLiquidity(params: { fromAddress: Address; jettonAmount0: 
 }
 
 export function getPoolData(): Cell {
-  return beginMessage({ op: new BN(0x43c034e6) })
-    .endCell();
+  return beginMessage({ op: new BN(0x43c034e6) }).endCell();
 }
 
-export function getExpectedOutputs(params: { jettonAmount: BN, tokenSent: Address }): Cell {
+export function getExpectedOutputs(params: { jettonAmount: BN; tokenSent: Address }): Cell {
   return beginMessage({ op: new BN(0xed4d8b67) })
     .storeCoins(params.jettonAmount)
     .storeAddress(params.tokenSent)
