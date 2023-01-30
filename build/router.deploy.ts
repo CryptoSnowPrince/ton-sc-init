@@ -1,6 +1,6 @@
 import * as router from "../contracts/router";
 import fs from "fs";
-import { Address, TupleSlice, WalletContract, Cell, beginCell } from "ton";
+import { Address, Cell, beginCell } from "ton";
 import dotenv from "dotenv";
 dotenv.config();
 

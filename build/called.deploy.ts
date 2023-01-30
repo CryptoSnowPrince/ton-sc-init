@@ -1,6 +1,4 @@
 import * as called from "../contracts/called";
-import fs from "fs";
-import { Address, TupleSlice, WalletContract, Cell, beginCell } from "ton";
 import dotenv from "dotenv";
 dotenv.config();
 
