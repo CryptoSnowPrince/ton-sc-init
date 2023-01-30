@@ -31,7 +31,8 @@ _ set_Val (int val) impure {
       return ();
     }
     if (op == 2) {
-      throw(1001);
+      set_Val(1001);
+      return ();
     }
     else {
       throw(1002);
